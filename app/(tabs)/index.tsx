@@ -1,98 +1,94 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Logo, FeaturedArticle, HeroImage, Callout, Divider, OurTeam } from '@/components';
+import { BrandColors, BrandFonts } from '@/constants/theme';
+import type { PartialArticle } from '@/types/article';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: BrandColors.white,
+  },
+  scrollContent: {
+    padding: 24,
+    gap: 32,
+  },
+  sectionSubtitle: {
+    fontFamily: BrandFonts.body,
+    fontSize: 22,
+    color: BrandColors.burgundy,
+    textAlign: 'left',
+  },
+  headerSection: {
+    gap: 16,
+  },
+});
+
+const mockArticle = {
+  system: {
+    id: 'mock-article-1',
+    name: 'Sample Article',
+    codename: 'sample_article',
+    type: 'article',
+    collection: 'default',
+    workflowStep: 'published',
+    workflow: 'default',
+    language: 'en',
+    lastModified: '2024-01-15T00:00:00Z',
+    sitemapLocations: [],
+  },
+  elements: {
+    title: {
+      value: 'Discovering the Art of Wine Tasting',
+    },
+    introduction: {
+      value:
+        'Embark on a sensory journey through the world of fine wines. Learn the techniques used by sommeliers to evaluate color, aroma, and taste profiles that make each vintage unique.',
+    },
+    publish_date: {
+      value: '2024-01-15T00:00:00Z',
+    },
+    image: {
+      value: [
+        {
+          url: 'https://picsum.photos/800/400',
+        },
+      ],
+    },
+  },
+} as unknown as PartialArticle;
+
+const handleReadMore = () => {
+  console.log('Read more pressed');
+};
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.headerSection}>
+          <Logo />
+          <HeroImage
+            headline="Improving Healthcare Together"
+            subheadline="Building modern solutions for better patient outcomes"
+            imageUrl="https://picsum.photos/670/440"
+          />
+        </View>
+        <Divider />
+        <OurTeam
+          title="Our Team"
+          body="Behind every breakthrough at Karma Health is a passionate team of clinicians, researchers, educators, and innovators. With deep expertise and a shared commitment to advancing healthcare, our people work across disciplines to deliver exceptional care and drive meaningful discovery."
+          imageUrl="https://picsum.photos/670/440"
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
-
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <Divider />
+        <Callout
+          title="We're Always Evolving."
+          body="Please note that Karma Health's research and medical education programs are continually evolving to provide cutting-edge advancements in healthcare. While we strive for excellence, outcomes may vary based on individual circumstances."
+        />
+        <Divider />
+        <Text style={styles.sectionSubtitle}>Featured</Text>
+        <FeaturedArticle article={mockArticle} onReadMore={handleReadMore} />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
