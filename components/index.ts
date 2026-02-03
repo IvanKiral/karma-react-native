@@ -7,3 +7,5 @@ export { FeaturedArticle } from './FeaturedArticle';
 export { HeroImage } from './HeroImage';
 export { Callout } from './Callout';
 export { OurTeam } from './OurTeam';
+export { ArticleItem } from './ArticleItem';
+export { ArticlesList } from './ArticlesList';
