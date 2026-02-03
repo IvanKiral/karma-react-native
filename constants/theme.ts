@@ -1,8 +1,3 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
 import { Platform } from 'react-native';
 
 const tintColorLight = '#0a7ea4';
@@ -27,15 +22,25 @@ export const Colors = {
   },
 };
 
+export const BrandColors = {
+  burgundy: '#993265',
+  azure: '#009edb',
+  white: '#ffffff',
+  grayLight: '#8e8e8e',
+  gray: '#3b3b3b',
+  creme: '#fff7e7',
+} as const;
+
+export const BrandFonts = {
+  heading: Platform.select({ ios: 'Georgia', default: 'serif' }),
+  body: Platform.select({ ios: 'System', default: 'sans-serif' }),
+} as const;
+
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {
