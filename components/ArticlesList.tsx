@@ -2,7 +2,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { BrandColors, BrandFonts } from '@/constants/theme';
 import { Divider } from './Divider';
 import { ArticleItem } from './ArticleItem';
-import type { PartialArticle } from '@/types/article';
+import type { ArticleType } from '@/model';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 
 type ArticlesListProps = {
   readonly title: string;
-  readonly articles: readonly PartialArticle[];
+  readonly articles: readonly ArticleType[];
   readonly onArticlePress: (id: string) => void;
 };
 

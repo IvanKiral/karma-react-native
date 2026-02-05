@@ -4,7 +4,7 @@ import { transformToPortableText } from '@kontent-ai/rich-text-resolver';
 import { PortableText, PortableTextComponents } from '@portabletext/react-native';
 import { useMemo } from 'react';
 import { Linking, StyleSheet, Text, View } from 'react-native';
-import { isCallToAction, isDisclaimer } from '@/types';
+import { isCallToActionType, isDisclaimerType } from '@/model';
 import { Callout } from './Callout';
 import { CallToAction } from './CallToAction';
 
@@ -115,7 +115,7 @@ const createComponents = (
       );
       if (!item) return null;
 
-      if (isDisclaimer(item)) {
+      if (isDisclaimerType(item)) {
         return (
           <Callout
             title={item.elements.headline.value}
@@ -124,7 +124,7 @@ const createComponents = (
         );
       }
 
-      if (isCallToAction(item)) {
+      if (isCallToActionType(item)) {
         return (
           <CallToAction
             title={item.elements.headline.value}

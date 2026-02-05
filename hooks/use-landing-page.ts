@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { createKontentClient } from '@/utils/client';
 import { usePreviewMode } from '@/providers/preview-mode-provider';
-import type { LandingPage } from '@/types/landing-page';
+import type { LandingPageType } from '@/model';
 
 export const useLandingPage = () => {
   const { isPreview } = usePreviewMode();
@@ -11,7 +11,7 @@ export const useLandingPage = () => {
     queryFn: async () => {
       const client = createKontentClient(isPreview);
       const response = await client
-        .items<LandingPage>()
+        .items<LandingPageType>()
         .type('landing_page')
         .limitParameter(1)
         .toPromise();
