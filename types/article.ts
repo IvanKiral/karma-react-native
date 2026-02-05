@@ -6,6 +6,11 @@ export type ArticleElements = {
   readonly image: Elements.AssetsElement;
   readonly body_copy: Elements.RichTextElement;
   readonly publish_date: Elements.DateTimeElement;
+  readonly author: Elements.LinkedItemsElement;
+  readonly article_type: Elements.TaxonomyElement;
+  readonly topics: Elements.TaxonomyElement;
+  readonly related_articles: Elements.LinkedItemsElement;
+  readonly url_slug: Elements.UrlSlugElement;
 };
 
 export type Article = IContentItem<ArticleElements>;
