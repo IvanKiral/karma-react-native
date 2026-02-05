@@ -5,6 +5,7 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { QueryProvider } from '@/providers/query-provider';
+import { PreviewModeProvider } from '@/providers/preview-mode-provider';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -15,21 +16,23 @@ export default function RootLayout() {
 
   return (
     <QueryProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="article/[id]"
-            options={{
-              headerShown: true,
-              headerTitle: '',
-              headerBackTitle: 'Back',
-            }}
-          />
-          <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
+      <PreviewModeProvider>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="article/[id]"
+              options={{
+                headerShown: true,
+                headerTitle: '',
+                headerBackTitle: 'Back',
+              }}
+            />
+            <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+          </Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </PreviewModeProvider>
     </QueryProvider>
   );
 }
