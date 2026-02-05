@@ -1,7 +1,7 @@
 import { Divider, FeaturedArticle, HeroImage, Loader, Logo, RichText } from '@/components';
 import { BrandColors, BrandFonts } from '@/constants/theme';
 import { useLandingPage } from '@/hooks/use-landing-page';
-import type { Article } from '@/types/article';
+import { isArticleType, type ArticleType } from '@/model';
 import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -46,9 +46,7 @@ export default function HomeScreen() {
 
   const heroImageUrl = landingPage?.elements.hero_image.value[0]?.url;
   const featuredContent = landingPage?.elements.featured_content.linkedItems ?? [];
-  const firstArticle = featuredContent.find(
-    (item) => item.system.type === 'article'
-  ) as Article | undefined;
+  const firstArticle = featuredContent.find(isArticleType);
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>

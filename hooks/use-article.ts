@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { createKontentClient } from '@/utils/client';
 import { usePreviewMode } from '@/providers/preview-mode-provider';
-import type { Article } from '@/types';
+import type { ArticleType } from '@/model';
 
 export const useArticle = (id: string | undefined) => {
   const { isPreview } = usePreviewMode();
@@ -11,7 +11,7 @@ export const useArticle = (id: string | undefined) => {
     queryFn: async () => {
       const client = createKontentClient(isPreview);
       const response = await client
-        .items<Article>()
+        .items<ArticleType>()
         .type('article')
         .equalsFilter('system.id', id ?? '')
         .depthParameter(1)

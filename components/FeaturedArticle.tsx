@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Pressable, useWindowDimensions } from 'react-native';
 import { Image } from 'expo-image';
 import { BrandColors, BrandFonts } from '@/constants/theme';
-import type { PartialArticle } from '@/types/article';
+import type { ArticleType } from '@/model';
 
 const styles = StyleSheet.create({
   container: {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 });
 
 type FeaturedArticleProps = {
-  readonly article: PartialArticle;
+  readonly article: ArticleType;
   readonly onReadMore: () => void;
 };
 
