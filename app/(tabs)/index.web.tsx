@@ -1,7 +1,7 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Divider, FeaturedArticle, HeroImage, Loader, Logo, RichText } from '@/components';
+import { Container, Divider, FeaturedArticle, HeroImage, Loader, RichText, WebLayout } from '@/components';
 import { BrandColors, BrandFonts } from '@/constants/theme';
 import { useLandingPage } from '@/hooks/use-landing-page';
 import { isArticleType } from '@/model';
@@ -10,10 +10,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BrandColors.white,
-  },
-  scrollContent: {
-    padding: 24,
-    gap: 32,
   },
   loadingContainer: {
     flex: 1,
@@ -27,12 +23,12 @@ const styles = StyleSheet.create({
     color: BrandColors.burgundy,
     textAlign: 'left',
   },
-  headerSection: {
-    gap: 16,
-  },
   contentSection: {
     gap: 32,
     paddingVertical: 32,
+  },
+  webContent: {
+    gap: 32,
   },
 });
 
@@ -53,10 +49,9 @@ const HomeScreen = () => {
   const firstArticle = featuredContent.find(isArticleType);
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.headerSection}>
-          <Logo />
+    <WebLayout>
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <View style={styles.webContent}>
           {landingPage && heroImageUrl && (
             <HeroImage
               headline={landingPage.elements.headline.value}
@@ -64,31 +59,33 @@ const HomeScreen = () => {
               imageUrl={heroImageUrl}
             />
           )}
-        </View>
 
-        <View style={styles.contentSection}>
-          {landingPage?.elements.body_copy.value && (
-            <>
-              <RichText
-                value={landingPage.elements.body_copy.value}
-                linkedItems={landingPage.elements.body_copy.linkedItems}
-              />
-              <Divider />
-            </>
-          )}
+          <Container>
+            <View style={styles.contentSection}>
+              {landingPage?.elements.body_copy.value && (
+                <>
+                  <RichText
+                    value={landingPage.elements.body_copy.value}
+                    linkedItems={landingPage.elements.body_copy.linkedItems}
+                  />
+                  <Divider />
+                </>
+              )}
 
-          {firstArticle && (
-            <>
-              <Text style={styles.sectionSubtitle}>Featured</Text>
-              <FeaturedArticle
-                article={firstArticle}
-                onReadMore={() => router.push(`/article/${firstArticle.system.id}`)}
-              />
-            </>
-          )}
+              {firstArticle && (
+                <>
+                  <Text style={styles.sectionSubtitle}>Featured</Text>
+                  <FeaturedArticle
+                    article={firstArticle}
+                    onReadMore={() => router.push(`/article/${firstArticle.system.id}`)}
+                  />
+                </>
+              )}
+            </View>
+          </Container>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </WebLayout>
   );
 };
 

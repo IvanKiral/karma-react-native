@@ -1,5 +1,6 @@
 import { BrandColors, BrandFonts } from '@/constants/theme';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'expo-image';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 type CallToActionProps = {
   readonly title: string;
@@ -11,20 +12,28 @@ type CallToActionProps = {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 16,
-    marginVertical: 16,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    gap: 64,
+    paddingVertical: 64,
+  },
+  imageContainer: {
+    width: 560,
+    height: 420,
+    borderRadius: 8,
+    overflow: 'hidden',
   },
   image: {
     width: '100%',
-    height: 200,
-    borderRadius: 8,
+    height: '100%',
   },
   content: {
+    flex: 1,
     gap: 12,
   },
   title: {
     fontFamily: BrandFonts.heading,
-    fontSize: 24,
+    fontSize: 48,
     color: BrandColors.burgundy,
   },
   description: {
@@ -57,12 +66,14 @@ export const CallToAction = ({
 }: CallToActionProps) => (
   <View style={styles.container}>
     {imageUrl && (
-      <Image
-        source={{ uri: imageUrl }}
-        style={styles.image}
-        resizeMode="cover"
-        accessibilityLabel={title}
-      />
+      <View style={styles.imageContainer}>
+        <Image
+          source={{ uri: imageUrl }}
+          style={styles.image}
+          contentFit="cover"
+          accessibilityLabel={title}
+        />
+      </View>
     )}
     <View style={styles.content}>
       <Text style={styles.title}>{title}</Text>

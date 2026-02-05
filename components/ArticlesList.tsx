@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text } from 'react-native';
 import { BrandColors, BrandFonts } from '@/constants/theme';
 import { Divider } from './Divider';
-import { ArticleItem } from './ArticleItem';
+import { ArticleItem } from './ArticleItem/ArticleItem';
 import type { ArticleType } from '@/model';
 
 const styles = StyleSheet.create({

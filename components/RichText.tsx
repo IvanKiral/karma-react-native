@@ -2,11 +2,12 @@ import type { IContentItem } from '@kontent-ai/delivery-sdk';
 import { BrandColors, BrandFonts } from '@/constants/theme';
 import { transformToPortableText } from '@kontent-ai/rich-text-resolver';
 import { PortableText, PortableTextComponents } from '@portabletext/react-native';
+import { Image } from 'expo-image';
 import { useMemo } from 'react';
 import { Linking, StyleSheet, Text, View } from 'react-native';
 import { isCallToActionType, isDisclaimerType } from '@/model';
-import { Callout } from './Callout';
-import { CallToAction } from './CallToAction';
+import { Callout } from './Callout/Callout';
+import { CallToAction } from './CallToAction/CallToAction';
 
 type RichTextProps = {
   readonly value: string;
@@ -62,6 +63,19 @@ const styles = StyleSheet.create({
     color: BrandColors.gray,
     lineHeight: 24,
   },
+  imageWrapper: {
+    width: '100%',
+    aspectRatio: 16 / 9,
+    marginVertical: 16,
+  },
+  richTextImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 8,
+  },
+  componentWrapper: {
+    marginVertical: 32,
+  },
 });
 
 const createComponents = (
@@ -109,6 +123,20 @@ const createComponents = (
     ),
   },
   types: {
+    image: ({ value }) => {
+      const url = value?.asset?.url;
+      if (!url) return null;
+
+      return (
+        <View style={styles.imageWrapper}>
+          <Image
+            source={{ uri: url }}
+            style={styles.richTextImage}
+            contentFit="cover"
+          />
+        </View>
+      );
+    },
     componentOrItem: ({ value }) => {
       const item = linkedItems.find(
         i => i.system.codename === value.componentOrItem._ref
@@ -117,22 +145,26 @@ const createComponents = (
 
       if (isDisclaimerType(item)) {
         return (
-          <Callout
-            title={item.elements.headline.value}
-            body={item.elements.subheadline.value}
-          />
+          <View style={styles.componentWrapper}>
+            <Callout
+              title={item.elements.headline.value}
+              body={item.elements.subheadline.value}
+            />
+          </View>
         );
       }
 
       if (isCallToActionType(item)) {
         return (
-          <CallToAction
-            title={item.elements.headline.value}
-            description={item.elements.subheadline.value}
-            buttonText={item.elements.button_label.value}
-            buttonUrl={item.elements.button_link.linkedItems[0]?.elements.url?.value ?? ''}
-            imageUrl={item.elements.image.value[0]?.url}
-          />
+          <View style={styles.componentWrapper}>
+            <CallToAction
+              title={item.elements.headline.value}
+              description={item.elements.subheadline.value}
+              buttonText={item.elements.button_label.value}
+              buttonUrl={item.elements.button_link.linkedItems[0]?.elements.url?.value ?? ''}
+              imageUrl={item.elements.image.value[0]?.url}
+            />
+          </View>
         );
       }
 
