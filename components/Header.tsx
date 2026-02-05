@@ -1,6 +1,6 @@
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import { Logo } from './Logo';
-import { Navigation } from './Navigation';
+import { Navigation } from './Navigation/Navigation';
 
 const styles = StyleSheet.create({
   container: {

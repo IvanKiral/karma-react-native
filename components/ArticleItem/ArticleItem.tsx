@@ -1,25 +1,15 @@
-import { StyleSheet, View, Text, Pressable, useWindowDimensions } from 'react-native';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { Image } from 'expo-image';
 import { BrandColors, BrandFonts } from '@/constants/theme';
 import type { ArticleType } from '@/model';
 
 const styles = StyleSheet.create({
   container: {
-    gap: 24,
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  column: {
     flexDirection: 'column',
+    gap: 24,
   },
   imageContainer: {
     position: 'relative',
-  },
-  imageContainerWide: {
-    flex: 1,
-  },
-  imageContainerNarrow: {
     width: '100%',
     aspectRatio: 16 / 9,
   },
@@ -27,27 +17,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  badge: {
-    position: 'absolute',
-    top: 16,
-    left: 16,
-    backgroundColor: BrandColors.azure,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-  },
-  badgeText: {
-    color: BrandColors.white,
-    fontFamily: BrandFonts.body,
-    fontSize: 12,
-    fontWeight: '600',
-    letterSpacing: 1,
-  },
   content: {
     gap: 8,
-  },
-  contentWide: {
-    flex: 2,
-    paddingLeft: 24,
   },
   title: {
     fontFamily: BrandFonts.heading,
@@ -77,7 +48,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type FeaturedArticleProps = {
+type ArticleItemProps = {
   readonly article: ArticleType;
   readonly onReadMore: () => void;
 };
@@ -92,31 +63,20 @@ const formatDate = (dateString: string | null | undefined): string => {
   });
 };
 
-export const FeaturedArticle = ({ article, onReadMore }: FeaturedArticleProps) => {
-  const { width } = useWindowDimensions();
-  const isWide = width >= 768;
-
+export const ArticleItem = ({ article, onReadMore }: ArticleItemProps) => {
   if (!article.elements) return null;
 
   const { title, introduction, image, publish_date } = article.elements;
   const imageUrl = image?.value?.[0]?.url;
 
   return (
-    <View style={[styles.container, isWide ? styles.row : styles.column]}>
-      <View
-        style={[
-          styles.imageContainer,
-          isWide ? styles.imageContainerWide : styles.imageContainerNarrow,
-        ]}
-      >
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
         {imageUrl && (
           <Image source={{ uri: imageUrl }} style={styles.image} contentFit="cover" />
         )}
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>FEATURED ARTICLE</Text>
-        </View>
       </View>
-      <View style={[styles.content, isWide && styles.contentWide]}>
+      <View style={styles.content}>
         {title?.value && <Text style={styles.title}>{title.value}</Text>}
         {publish_date?.value && (
           <Text style={styles.date}>{formatDate(publish_date.value)}</Text>
