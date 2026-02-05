@@ -6,6 +6,8 @@ export { Header } from './Header';
 export { FeaturedArticle } from './FeaturedArticle';
 export { HeroImage } from './HeroImage';
 export { Callout } from './Callout';
+export { CallToAction } from './CallToAction';
 export { OurTeam } from './OurTeam';
 export { ArticleItem } from './ArticleItem';
 export { ArticlesList } from './ArticlesList';
+export { RichText } from './RichText';
