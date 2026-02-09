@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
-    maxWidth: 1280,
+    maxWidth: 1536,
     alignSelf: 'center',
     paddingHorizontal: 12,
   },
@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
   },
   contentWide: {
     flexDirection: 'row',
-    gap: 32,
+    gap: 128,
     paddingVertical: 0,
   },
   textContainer: {
     flex: 1,
     paddingTop: 40,
     paddingBottom: 40,
-    gap: 24,
+    gap: 40,
     alignItems: 'center',
   },
   textContainerWide: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   headline: {
     fontFamily: BrandFonts.heading,
     fontSize: 48,
-    color: BrandColors.white,
+    color: BrandColors.creme,
     lineHeight: 52,
     textAlign: 'center',
   },
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
   subheadline: {
     fontFamily: BrandFonts.body,
     fontSize: 20,
-    color: BrandColors.white,
-    lineHeight: 28,
+    color: BrandColors.creme,
+    lineHeight: 30,
     textAlign: 'center',
   },
   subheadlineWide: {

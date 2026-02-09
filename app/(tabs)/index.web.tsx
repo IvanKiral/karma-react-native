@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Container, Divider, FeaturedArticle, HeroImage, Loader, RichText, WebLayout } from '@/components';
+import { Container, FeaturedArticle, HeroImage, Loader, RichText, WebLayout } from '@/components';
 import { BrandColors, BrandFonts } from '@/constants/theme';
 import { useLandingPage } from '@/hooks/use-landing-page';
 import { isArticleType } from '@/model';
@@ -25,10 +25,14 @@ const styles = StyleSheet.create({
   },
   contentSection: {
     gap: 32,
-    paddingVertical: 32,
+    paddingVertical: 64,
   },
   webContent: {
-    gap: 32,
+    gap: 0,
+  },
+  cremeSection: {
+    backgroundColor: BrandColors.creme,
+    width: '100%',
   },
 });
 
@@ -63,26 +67,25 @@ const HomeScreen = () => {
           <Container>
             <View style={styles.contentSection}>
               {landingPage?.elements.body_copy.value && (
-                <>
-                  <RichText
-                    value={landingPage.elements.body_copy.value}
-                    linkedItems={landingPage.elements.body_copy.linkedItems}
-                  />
-                  <Divider />
-                </>
+                <RichText
+                  value={landingPage.elements.body_copy.value}
+                  linkedItems={landingPage.elements.body_copy.linkedItems}
+                />
               )}
 
-              {firstArticle && (
-                <>
-                  <Text style={styles.sectionSubtitle}>Featured</Text>
-                  <FeaturedArticle
-                    article={firstArticle}
-                    onReadMore={() => router.push(`/article/${firstArticle.system.id}`)}
-                  />
-                </>
-              )}
             </View>
           </Container>
+
+          {firstArticle && (
+            <View style={styles.cremeSection}>
+              <Container>
+                <FeaturedArticle
+                  article={firstArticle}
+                  onReadMore={() => router.push(`/article/${firstArticle.system.id}`)}
+                />
+              </Container>
+            </View>
+          )}
         </View>
       </SafeAreaView>
     </WebLayout>

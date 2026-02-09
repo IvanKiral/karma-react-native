@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: BrandFonts.body,
-    fontSize: 16,
+    fontSize: 20,
     color: BrandColors.gray,
   },
   textHovered: {

@@ -11,6 +11,8 @@
     "model:generate": "tsx scripts/generate-model.ts"
   },
   "dependencies": {
+    "@expo-google-fonts/abhaya-libre": "^0.4.1",
+    "@expo-google-fonts/source-sans-3": "^0.4.1",
     "@expo/vector-icons": "^15.0.3",
     "@kontent-ai/delivery-sdk": "^16.4.0",
     "@kontent-ai/rich-text-resolver": "^3.0.2",
