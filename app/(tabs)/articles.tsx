@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { ScrollView, StyleSheet } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArticlesList, Loader } from '@/components';
 import { BrandColors } from '@/constants/theme';
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
 const ArticlesScreen = () => {
   const router = useRouter();
-  const { data: articles, isLoading } = useArticles();
+  const { data: articles, isLoading, refetch, isRefetching } = useArticles();
 
   const handleArticlePress = (id: string) => {
     router.push(`/article/${id}`);
@@ -39,7 +39,7 @@ const ArticlesScreen = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView contentContainerStyle={styles.scrollContent} refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}>
         <ArticlesList
           title="Articles"
           articles={articles ?? []}

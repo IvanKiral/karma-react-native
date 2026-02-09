@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Divider, FeaturedArticle, HeroImage, Loader, Logo, RichText } from '@/components';
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
 const HomeScreen = () => {
   const router = useRouter();
-  const { data: landingPage, isLoading } = useLandingPage();
+  const { data: landingPage, isLoading, refetch, isRefetching } = useLandingPage();
 
   if (isLoading) {
     return (
@@ -54,7 +54,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView contentContainerStyle={styles.scrollContent} refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}>
         <View style={styles.headerSection}>
           <Logo />
           {landingPage && heroImageUrl && (
