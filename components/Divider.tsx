@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottomWidth: 1,
     borderColor: '#D1D1D1',
+    marginVertical: 24,
   },
 });
 
