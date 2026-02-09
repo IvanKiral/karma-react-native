@@ -8,6 +8,7 @@ type CallToActionProps = {
   readonly buttonText: string;
   readonly buttonUrl: string;
   readonly imageUrl?: string;
+  readonly imagePosition?: 'left' | 'right';
 };
 
 const styles = StyleSheet.create({

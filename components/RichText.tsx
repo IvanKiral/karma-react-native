@@ -17,28 +17,31 @@ type RichTextProps = {
 const styles = StyleSheet.create({
   paragraph: {
     fontFamily: BrandFonts.body,
-    fontSize: 16,
+    fontSize: 20,
     color: BrandColors.gray,
-    lineHeight: 24,
-    marginBottom: 12,
+    lineHeight: 30,
+    marginBottom: 16,
   },
   h1: {
     fontFamily: BrandFonts.heading,
-    fontSize: 28,
-    color: BrandColors.burgundy,
-    marginBottom: 16,
+    fontSize: 48,
+    color: BrandColors.gray,
+    marginBottom: 24,
+    lineHeight: 40,
   },
   h2: {
     fontFamily: BrandFonts.heading,
-    fontSize: 24,
-    color: BrandColors.burgundy,
-    marginBottom: 14,
+    fontSize: 36,
+    color: BrandColors.gray,
+    marginBottom: 20,
+    lineHeight: 30,
   },
   h3: {
     fontFamily: BrandFonts.heading,
     fontSize: 20,
-    color: BrandColors.burgundy,
-    marginBottom: 12,
+    color: BrandColors.gray,
+    marginBottom: 16,
+    lineHeight: 17,
   },
   bold: { fontWeight: 'bold' },
   italic: { fontStyle: 'italic' },
@@ -59,9 +62,9 @@ const styles = StyleSheet.create({
   listItemText: {
     flex: 1,
     fontFamily: BrandFonts.body,
-    fontSize: 16,
+    fontSize: 20,
     color: BrandColors.gray,
-    lineHeight: 24,
+    lineHeight: 30,
   },
   imageWrapper: {
     width: '100%',
@@ -74,12 +77,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   componentWrapper: {
-    marginVertical: 32,
+    marginVertical: 0,
   },
 });
 
 const createComponents = (
-  linkedItems: ReadonlyArray<IContentItem>
+  linkedItems: ReadonlyArray<IContentItem>,
+  ctaIndexMap: Map<string, number>
 ): PortableTextComponents => ({
   block: {
     normal: ({ children }) => <Text style={styles.paragraph}>{children}</Text>,
@@ -155,6 +159,7 @@ const createComponents = (
       }
 
       if (isCallToActionType(item)) {
+        const ctaIndex = ctaIndexMap.get(item.system.codename) ?? 0;
         return (
           <View style={styles.componentWrapper}>
             <CallToAction
@@ -163,6 +168,7 @@ const createComponents = (
               buttonText={item.elements.button_label.value}
               buttonUrl={item.elements.button_link.linkedItems[0]?.elements.url?.value ?? ''}
               imageUrl={item.elements.image.value[0]?.url}
+              imagePosition={ctaIndex % 2 === 0 ? 'right' : 'left'}
             />
           </View>
         );
@@ -175,7 +181,16 @@ const createComponents = (
 
 export const RichText = ({ value, linkedItems = [] }: RichTextProps) => {
   const portableText = useMemo(() => transformToPortableText(value), [value]);
-  const components = useMemo(() => createComponents(linkedItems), [linkedItems]);
+
+  const ctaIndexMap = useMemo(() => {
+    const ctaItems = linkedItems.filter(isCallToActionType);
+    return new Map(ctaItems.map((item, index) => [item.system.codename, index]));
+  }, [linkedItems]);
+
+  const components = useMemo(
+    () => createComponents(linkedItems, ctaIndexMap),
+    [linkedItems, ctaIndexMap]
+  );
 
   return <PortableText value={portableText} components={components} />;
 };

@@ -1,6 +1,6 @@
 import { BrandColors, BrandFonts } from '@/constants/theme';
 import { Image } from 'expo-image';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 type CallToActionProps = {
   readonly title: string;
@@ -8,14 +8,15 @@ type CallToActionProps = {
   readonly buttonText: string;
   readonly buttonUrl: string;
   readonly imageUrl?: string;
+  readonly imagePosition?: 'left' | 'right';
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row-reverse',
     alignItems: 'center',
     gap: 64,
-    paddingVertical: 64,
+    paddingTop: 96,
+    paddingBottom: 160,
   },
   imageContainer: {
     width: 560,
@@ -29,25 +30,27 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    gap: 12,
+    gap: 20,
   },
   title: {
     fontFamily: BrandFonts.heading,
-    fontSize: 48,
+    fontSize: 60,
     color: BrandColors.burgundy,
+    fontWeight: '700',
   },
   description: {
     fontFamily: BrandFonts.body,
-    fontSize: 16,
+    fontSize: 20,
     color: BrandColors.gray,
-    lineHeight: 24,
+    lineHeight: 30,
   },
   button: {
-    backgroundColor: BrandColors.burgundy,
+    backgroundColor: BrandColors.azure,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
     alignSelf: 'flex-start',
+    marginTop: 20,
   },
   buttonText: {
     fontFamily: BrandFonts.body,
@@ -57,14 +60,20 @@ const styles = StyleSheet.create({
   },
 });
 
+const getContainerStyle = (imagePosition: 'left' | 'right'): ViewStyle => ({
+  ...styles.container,
+  flexDirection: imagePosition === 'left' ? 'row' : 'row-reverse',
+});
+
 export const CallToAction = ({
   title,
   description,
   buttonText,
   buttonUrl,
   imageUrl,
+  imagePosition = 'right',
 }: CallToActionProps) => (
-  <View style={styles.container}>
+  <View style={getContainerStyle(imagePosition)}>
     {imageUrl && (
       <View style={styles.imageContainer}>
         <Image

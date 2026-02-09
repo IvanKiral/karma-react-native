@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    maxWidth: 1280,
+    maxWidth: 1536,
     alignSelf: 'center',
     paddingHorizontal: 12,
   },
