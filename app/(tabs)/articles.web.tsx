@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArticlesList, Container, Loader, WebLayout } from '@/components';
 import { BrandColors } from '@/constants/theme';
@@ -9,9 +9,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BrandColors.white,
-  },
-  webContent: {
-    paddingVertical: 32,
   },
   loadingContainer: {
     flex: 1,
@@ -40,15 +37,13 @@ const ArticlesScreen = () => {
   return (
     <WebLayout>
       <SafeAreaView style={styles.container} edges={['top']}>
-        <View style={styles.webContent}>
-          <Container>
-            <ArticlesList
-              title="Articles"
-              articles={articles ?? []}
-              onArticlePress={handleArticlePress}
-            />
-          </Container>
-        </View>
+        <Container>
+          <ArticlesList
+            title="Articles"
+            articles={articles ?? []}
+            onArticlePress={handleArticlePress}
+          />
+        </Container>
       </SafeAreaView>
     </WebLayout>
   );

@@ -5,12 +5,12 @@ import { ArticleItem } from './ArticleItem/ArticleItem';
 import type { ArticleType } from '@/model';
 
 const styles = StyleSheet.create({
-  container: {
-    gap: 24,
-  },
+  container: {},
   title: {
-    fontFamily: BrandFonts.body,
-    fontSize: 22,
+    fontFamily: BrandFonts.heading,
+    fontSize: 40,
+    lineHeight: 48,
+    paddingTop: 48,
     color: BrandColors.burgundy,
     textAlign: 'left',
   },
@@ -31,11 +31,7 @@ export const ArticlesList = ({ title, articles, onArticlePress }: ArticlesListPr
           article={article}
           onReadMore={() => onArticlePress(article.system.id)}
         />
-        {index < articles.length - 1 && (
-          <View style={{ marginTop: 24 }}>
-            <Divider />
-          </View>
-        )}
+        {index < articles.length - 1 && <Divider />}
       </View>
     ))}
   </View>

@@ -6,12 +6,15 @@ import type { ArticleType } from '@/model';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    gap: 24,
+    gap: 64,
+    paddingTop: 98,
+    paddingBottom: 150,
   },
   imageContainer: {
-    position: 'relative',
-    flex: 1,
-    maxWidth: 440,
+    width: 440,
+    height: 288,
+    borderRadius: 6,
+    overflow: 'hidden',
   },
   image: {
     width: '100%',
@@ -19,14 +22,14 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 2,
-    paddingLeft: 24,
-    gap: 8,
+    justifyContent: 'center',
+    gap: 20,
   },
   title: {
     fontFamily: BrandFonts.heading,
-    fontSize: 28,
+    fontSize: 36,
     color: BrandColors.burgundy,
-    lineHeight: 36,
+    lineHeight: 44,
   },
   date: {
     fontFamily: BrandFonts.body,
@@ -35,16 +38,16 @@ const styles = StyleSheet.create({
   },
   introduction: {
     fontFamily: BrandFonts.body,
-    fontSize: 16,
+    fontSize: 20,
     color: BrandColors.gray,
-    lineHeight: 24,
+    lineHeight: 30,
   },
   readMore: {
     alignSelf: 'flex-start',
   },
   readMoreText: {
     fontFamily: BrandFonts.body,
-    fontSize: 16,
+    fontSize: 20,
     color: BrandColors.burgundy,
     textDecorationLine: 'underline',
   },
@@ -84,7 +87,7 @@ export const ArticleItem = ({ article, onReadMore }: ArticleItemProps) => {
           <Text style={styles.date}>{formatDate(publish_date.value)}</Text>
         )}
         {introduction?.value && (
-          <Text style={styles.introduction}>{introduction.value}</Text>
+          <Text style={styles.introduction} numberOfLines={4}>{introduction.value}</Text>
         )}
         <Pressable style={styles.readMore} onPress={onReadMore}>
           <Text style={styles.readMoreText}>Read more</Text>
