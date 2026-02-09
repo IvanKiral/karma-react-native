@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, View, Text } from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams } from 'expo-router';
 import { Image } from 'expo-image';
@@ -70,7 +70,7 @@ const formatDate = (dateString: string | null | undefined): string => {
 
 export default function ArticleDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { data: article, isLoading } = useArticle(id);
+  const { data: article, isLoading, refetch, isRefetching } = useArticle(id);
 
   if (isLoading) {
     return (
@@ -95,7 +95,7 @@ export default function ArticleDetail() {
 
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
-      <ScrollView>
+      <ScrollView refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}>
         {imageUrl && (
           <Image source={{ uri: imageUrl }} style={styles.heroImage} contentFit="cover" />
         )}

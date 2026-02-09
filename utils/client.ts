@@ -13,7 +13,7 @@ export const createKontentClient = (isPreview: boolean) =>
     ...(isPreview && previewApiKey
       ? {
           previewApiKey,
-          defaultQueryConfig: { usePreviewMode: true },
+          defaultQueryConfig: { usePreviewMode: true, waitForLoadingNewContent: true },
         }
       : {}),
   });
