@@ -6,6 +6,9 @@ import type { ArticleType } from '@/model';
 
 const styles = StyleSheet.create({
   container: {},
+  articleWrapper: {
+    paddingBottom: 8,
+  },
   title: {
     fontFamily: BrandFonts.heading,
     fontSize: 40,
@@ -26,7 +29,7 @@ export const ArticlesList = ({ title, articles, onArticlePress }: ArticlesListPr
   <View style={styles.container}>
     <Text style={styles.title}>{title}</Text>
     {articles.map((article, index) => (
-      <View key={article.system.id}>
+      <View key={article.system.id} style={styles.articleWrapper}>
         <ArticleItem
           article={article}
           onReadMore={() => onArticlePress(article.system.id)}
