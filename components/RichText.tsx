@@ -1,6 +1,16 @@
 import type { IContentItem } from "@kontent-ai/delivery-sdk";
-import { transformToPortableText } from "@kontent-ai/rich-text-resolver";
-import { PortableText, type PortableTextComponents } from "@portabletext/react-native";
+import {
+  type PortableTextComponentOrItem,
+  type PortableTextExternalLink,
+  type PortableTextImage,
+  transformToPortableText,
+} from "@kontent-ai/rich-text-resolver";
+import {
+  PortableText,
+  type PortableTextComponents,
+  type PortableTextMarkComponent,
+  type PortableTextTypeComponent,
+} from "@portabletext/react-native";
 import { Image } from "expo-image";
 import { useMemo } from "react";
 import { Linking, StyleSheet, Text, View } from "react-native";
@@ -99,11 +109,18 @@ const createComponents = (
   marks: {
     strong: ({ children }) => <Text style={styles.bold}>{children}</Text>,
     em: ({ children }) => <Text style={styles.italic}>{children}</Text>,
-    link: ({ value, children }) => (
-      <Text style={styles.link} onPress={() => value?.href && Linking.openURL(value.href)}>
+    link: (({ value, children }) => (
+      <Text
+        style={styles.link}
+        onPress={() => {
+          if (value?.href) {
+            void Linking.openURL(value.href);
+          }
+        }}
+      >
         {children}
       </Text>
-    ),
+    )) as PortableTextMarkComponent<PortableTextExternalLink>,
   },
   list: {
     bullet: ({ children }) => <View style={styles.list}>{children}</View>,
@@ -124,7 +141,7 @@ const createComponents = (
     ),
   },
   types: {
-    image: ({ value }) => {
+    image: (({ value }) => {
       const url = value?.asset?.url;
       if (!url) {
         return null;
@@ -135,8 +152,8 @@ const createComponents = (
           <Image source={{ uri: url }} style={styles.richTextImage} contentFit="cover" />
         </View>
       );
-    },
-    componentOrItem: ({ value }) => {
+    }) as PortableTextTypeComponent<PortableTextImage>,
+    componentOrItem: (({ value }) => {
       const item = linkedItems.find((i) => i.system.codename === value.componentOrItem._ref);
       if (!item) {
         return null;
@@ -167,7 +184,7 @@ const createComponents = (
       }
 
       return null;
-    },
+    }) as PortableTextTypeComponent<PortableTextComponentOrItem>,
   },
 });
 
