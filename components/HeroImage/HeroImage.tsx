@@ -1,6 +1,6 @@
-import { StyleSheet, View, Text } from 'react-native';
-import { Image } from 'expo-image';
-import { BrandColors, BrandFonts } from '@/constants/theme';
+import { Image } from "expo-image";
+import { StyleSheet, Text, View } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     lineHeight: 28,
   },
   imageContainer: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 670 / 440,
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
 });
 

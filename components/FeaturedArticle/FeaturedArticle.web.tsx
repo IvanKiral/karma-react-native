@@ -1,30 +1,30 @@
-import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { Image } from 'expo-image';
-import { BrandColors, BrandFonts } from '@/constants/theme';
-import type { ArticleType } from '@/model';
+import { Image } from "expo-image";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
+import type { ArticleType } from "@/model/index";
 
 const styles = StyleSheet.create({
   wrapper: {
     paddingVertical: 104,
   },
   container: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 64,
-    alignItems: 'center',
+    alignItems: "center",
   },
   imageContainer: {
-    position: 'relative',
+    position: "relative",
     borderRadius: 8,
-    overflow: 'hidden',
+    overflow: "hidden",
     width: 440,
     height: 280,
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   badge: {
-    position: 'absolute',
+    position: "absolute",
     top: 16,
     left: 16,
     backgroundColor: BrandColors.azure,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     color: BrandColors.white,
     fontFamily: BrandFonts.body,
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: "700",
     letterSpacing: 1,
   },
   content: {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     color: BrandColors.burgundy,
     lineHeight: 40,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   date: {
     fontFamily: BrandFonts.body,
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     lineHeight: 27,
   },
   tagsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 8,
     marginTop: 16,
   },
@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
   tagText: {
     fontFamily: BrandFonts.body,
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
     color: BrandColors.grayDark,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     lineHeight: 18,
   },
   introduction: {
@@ -85,14 +85,14 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   readMore: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginTop: 24,
   },
   readMoreText: {
     fontFamily: BrandFonts.body,
     fontSize: 20,
     color: BrandColors.burgundy,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
 });
 
@@ -102,17 +102,21 @@ type FeaturedArticleProps = {
 };
 
 const formatDate = (dateString: string | null | undefined): string => {
-  if (!dateString) return '';
+  if (!dateString) {
+    return "";
+  }
   const date = new Date(dateString);
-  return `Published on ${date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  })}`
+  return `Published on ${date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })}`;
 };
 
 export const FeaturedArticle = ({ article, onReadMore }: FeaturedArticleProps) => {
-  if (!article.elements) return null;
+  if (!article.elements) {
+    return null;
+  }
 
   const { title, introduction, image, publish_date, topics } = article.elements;
   const imageUrl = image?.value?.[0]?.url;
@@ -121,35 +125,33 @@ export const FeaturedArticle = ({ article, onReadMore }: FeaturedArticleProps) =
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        {imageUrl && (
-          <Image source={{ uri: imageUrl }} style={styles.image} contentFit="cover" />
-        )}
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>FEATURED ARTICLE</Text>
-        </View>
-      </View>
-      <View style={styles.content}>
-        {title?.value && <Text style={styles.title}>{title.value}</Text>}
-        {publish_date?.value && (
-          <Text style={styles.date}>{formatDate(publish_date.value)}</Text>
-        )}
-        {tags.length > 0 && (
-          <View style={styles.tagsContainer}>
-            {tags.map(tag => (
-              <View key={tag.codename} style={styles.tag}>
-                <Text style={styles.tagText}>{tag.name}</Text>
-              </View>
-            ))}
+        <View style={styles.imageContainer}>
+          {!!imageUrl && (
+            <Image source={{ uri: imageUrl }} style={styles.image} contentFit="cover" />
+          )}
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>FEATURED ARTICLE</Text>
           </View>
-        )}
-        {introduction?.value && (
-          <Text style={styles.introduction}>{introduction.value}</Text>
-        )}
-        <Pressable style={styles.readMore} onPress={onReadMore}>
-          <Text style={styles.readMoreText}>Read more</Text>
-        </Pressable>
-      </View>
+        </View>
+        <View style={styles.content}>
+          {!!title?.value && <Text style={styles.title}>{title.value}</Text>}
+          {!!publish_date?.value && (
+            <Text style={styles.date}>{formatDate(publish_date.value)}</Text>
+          )}
+          {tags.length > 0 && (
+            <View style={styles.tagsContainer}>
+              {tags.map((tag) => (
+                <View key={tag.codename} style={styles.tag}>
+                  <Text style={styles.tagText}>{tag.name}</Text>
+                </View>
+              ))}
+            </View>
+          )}
+          {!!introduction?.value && <Text style={styles.introduction}>{introduction.value}</Text>}
+          <Pressable style={styles.readMore} onPress={onReadMore}>
+            <Text style={styles.readMoreText}>Read more</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );

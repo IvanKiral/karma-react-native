@@ -1,8 +1,8 @@
-import { StyleSheet, View, Text } from 'react-native';
-import { BrandColors, BrandFonts } from '@/constants/theme';
-import { Divider } from './Divider';
-import { ArticleItem } from './ArticleItem/ArticleItem';
-import type { ArticleType } from '@/model';
+import { StyleSheet, Text, View } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
+import type { ArticleType } from "@/model/index";
+import { ArticleItem } from "./ArticleItem/ArticleItem";
+import { Divider } from "./Divider";
 
 const styles = StyleSheet.create({
   container: {},
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     lineHeight: 48,
     paddingTop: 48,
     color: BrandColors.burgundy,
-    textAlign: 'left',
+    textAlign: "left",
   },
 });
 
@@ -30,10 +30,7 @@ export const ArticlesList = ({ title, articles, onArticlePress }: ArticlesListPr
     <Text style={styles.title}>{title}</Text>
     {articles.map((article, index) => (
       <View key={article.system.id} style={styles.articleWrapper}>
-        <ArticleItem
-          article={article}
-          onReadMore={() => onArticlePress(article.system.id)}
-        />
+        <ArticleItem article={article} onReadMore={() => onArticlePress(article.system.id)} />
         {index < articles.length - 1 && <Divider />}
       </View>
     ))}

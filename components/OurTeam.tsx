@@ -1,17 +1,17 @@
-import { BrandColors, BrandFonts } from '@/constants/theme';
-import { Image } from 'expo-image';
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { Image } from "expo-image";
+import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
 
 const styles = StyleSheet.create({
   container: {
     gap: 24,
   },
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   column: {
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   textContainer: {
     gap: 8,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: BrandFonts.heading,
     fontSize: 36,
-    fontStyle: 'normal',
+    fontStyle: "normal",
     color: BrandColors.azure,
     lineHeight: 44,
   },
@@ -34,15 +34,15 @@ const styles = StyleSheet.create({
     lineHeight: 28,
   },
   imageContainer: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 670 / 440,
   },
   imageContainerWide: {
     flex: 1,
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
 });
 

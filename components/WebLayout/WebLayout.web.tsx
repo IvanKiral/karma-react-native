@@ -1,9 +1,9 @@
-import { StyleSheet, ScrollView } from 'react-native';
-import type { ReactNode } from 'react';
-import { Header } from '../Header';
-import { Footer } from '../Footer/Footer';
-import { Container } from '../Container/Container';
-import { BrandColors } from '@/constants/theme';
+import type { ReactNode } from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import { BrandColors } from "@/constants/theme";
+import { Container } from "../Container/Container";
+import { Footer } from "../Footer/Footer";
+import { Header } from "../Header";
 
 const styles = StyleSheet.create({
   wrapper: {

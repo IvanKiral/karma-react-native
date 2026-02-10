@@ -1,6 +1,6 @@
-import { BrandColors, BrandFonts } from '@/constants/theme';
-import { Image } from 'expo-image';
-import { Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Image } from "expo-image";
+import { Pressable, StyleSheet, Text, View, type ViewStyle } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
 
 type CallToActionProps = {
   readonly title: string;
@@ -8,12 +8,12 @@ type CallToActionProps = {
   readonly buttonText: string;
   readonly buttonUrl: string;
   readonly imageUrl?: string;
-  readonly imagePosition?: 'left' | 'right';
+  readonly imagePosition?: "left" | "right";
 };
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    alignItems: "center",
     gap: 64,
     paddingTop: 96,
     paddingBottom: 160,
@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
     width: 560,
     height: 420,
     borderRadius: 8,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   content: {
     flex: 1,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     fontFamily: BrandFonts.heading,
     fontSize: 60,
     color: BrandColors.burgundy,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   description: {
     fontFamily: BrandFonts.body,
@@ -49,20 +49,20 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginTop: 20,
   },
   buttonText: {
     fontFamily: BrandFonts.body,
     fontSize: 16,
     color: BrandColors.white,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 
-const getContainerStyle = (imagePosition: 'left' | 'right'): ViewStyle => ({
+const getContainerStyle = (imagePosition: "left" | "right"): ViewStyle => ({
   ...styles.container,
-  flexDirection: imagePosition === 'left' ? 'row' : 'row-reverse',
+  flexDirection: imagePosition === "left" ? "row" : "row-reverse",
 });
 
 export const CallToAction = ({
@@ -71,10 +71,10 @@ export const CallToAction = ({
   buttonText,
   buttonUrl,
   imageUrl,
-  imagePosition = 'right',
+  imagePosition = "right",
 }: CallToActionProps) => (
   <View style={getContainerStyle(imagePosition)}>
-    {imageUrl && (
+    {!!imageUrl && (
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: imageUrl }}
@@ -87,7 +87,7 @@ export const CallToAction = ({
     <View style={styles.content}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
-      {buttonUrl && (
+      {!!buttonUrl && (
         <Pressable style={styles.button}>
           <Text style={styles.buttonText}>{buttonText}</Text>
         </Pressable>

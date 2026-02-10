@@ -1,13 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { useEffect } from "react";
+import { StyleSheet } from "react-native";
 import Animated, {
-  useSharedValue,
+  Easing,
   useAnimatedStyle,
+  useSharedValue,
   withRepeat,
   withTiming,
-  Easing,
-} from 'react-native-reanimated';
-import { useEffect } from 'react';
-import { BrandColors } from '@/constants/theme';
+} from "react-native-reanimated";
+import { BrandColors } from "@/constants/theme";
 
 const styles = StyleSheet.create({
   loader: {
@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
     height: 128,
     borderRadius: 64,
     borderWidth: 8,
-    borderColor: '#f3f3f3',
+    borderColor: "#f3f3f3",
     borderTopColor: BrandColors.burgundy,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 });
 
@@ -28,7 +28,7 @@ export const Loader = () => {
     rotation.value = withRepeat(
       withTiming(360, { duration: 1000, easing: Easing.linear }),
       -1,
-      false
+      false,
     );
   }, [rotation]);
 

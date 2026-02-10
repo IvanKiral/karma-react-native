@@ -1,13 +1,13 @@
-import type { IContentItem } from '@kontent-ai/delivery-sdk';
-import { BrandColors, BrandFonts } from '@/constants/theme';
-import { transformToPortableText } from '@kontent-ai/rich-text-resolver';
-import { PortableText, PortableTextComponents } from '@portabletext/react-native';
-import { Image } from 'expo-image';
-import { useMemo } from 'react';
-import { Linking, StyleSheet, Text, View } from 'react-native';
-import { isCallToActionType, isDisclaimerType } from '@/model';
-import { Callout } from './Callout/Callout';
-import { CallToAction } from './CallToAction/CallToAction';
+import type { IContentItem } from "@kontent-ai/delivery-sdk";
+import { transformToPortableText } from "@kontent-ai/rich-text-resolver";
+import { PortableText, type PortableTextComponents } from "@portabletext/react-native";
+import { Image } from "expo-image";
+import { useMemo } from "react";
+import { Linking, StyleSheet, Text, View } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
+import { isCallToActionType, isDisclaimerType } from "@/model/index";
+import { Callout } from "./Callout/Callout";
+import { CallToAction } from "./CallToAction/CallToAction";
 
 type RichTextProps = {
   readonly value: string;
@@ -43,9 +43,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     lineHeight: 17,
   },
-  bold: { fontWeight: 'bold' },
-  italic: { fontStyle: 'italic' },
-  link: { color: BrandColors.azure, textDecorationLine: 'underline' },
+  bold: { fontWeight: "bold" },
+  italic: { fontStyle: "italic" },
+  link: { color: BrandColors.azure, textDecorationLine: "underline" },
   blockquote: {
     borderLeftWidth: 3,
     borderLeftColor: BrandColors.burgundy,
@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   blockquoteText: {
-    fontStyle: 'italic',
+    fontStyle: "italic",
     color: BrandColors.grayLight,
   },
   list: { marginVertical: 8 },
-  listItem: { flexDirection: 'row', marginBottom: 4 },
+  listItem: { flexDirection: "row", marginBottom: 4 },
   bullet: { width: 20, color: BrandColors.gray },
   listItemText: {
     flex: 1,
@@ -67,13 +67,13 @@ const styles = StyleSheet.create({
     lineHeight: 30,
   },
   imageWrapper: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 16 / 9,
     marginVertical: 16,
   },
   richTextImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     borderRadius: 8,
   },
   componentWrapper: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 
 const createComponents = (
   linkedItems: ReadonlyArray<IContentItem>,
-  ctaIndexMap: Map<string, number>
+  ctaIndexMap: Map<string, number>,
 ): PortableTextComponents => ({
   block: {
     normal: ({ children }) => <Text style={styles.paragraph}>{children}</Text>,
@@ -100,10 +100,7 @@ const createComponents = (
     strong: ({ children }) => <Text style={styles.bold}>{children}</Text>,
     em: ({ children }) => <Text style={styles.italic}>{children}</Text>,
     link: ({ value, children }) => (
-      <Text
-        style={styles.link}
-        onPress={() => value?.href && Linking.openURL(value.href)}
-      >
+      <Text style={styles.link} onPress={() => value?.href && Linking.openURL(value.href)}>
         {children}
       </Text>
     ),
@@ -129,31 +126,26 @@ const createComponents = (
   types: {
     image: ({ value }) => {
       const url = value?.asset?.url;
-      if (!url) return null;
+      if (!url) {
+        return null;
+      }
 
       return (
         <View style={styles.imageWrapper}>
-          <Image
-            source={{ uri: url }}
-            style={styles.richTextImage}
-            contentFit="cover"
-          />
+          <Image source={{ uri: url }} style={styles.richTextImage} contentFit="cover" />
         </View>
       );
     },
     componentOrItem: ({ value }) => {
-      const item = linkedItems.find(
-        i => i.system.codename === value.componentOrItem._ref
-      );
-      if (!item) return null;
+      const item = linkedItems.find((i) => i.system.codename === value.componentOrItem._ref);
+      if (!item) {
+        return null;
+      }
 
       if (isDisclaimerType(item)) {
         return (
           <View style={styles.componentWrapper}>
-            <Callout
-              title={item.elements.headline.value}
-              body={item.elements.subheadline.value}
-            />
+            <Callout title={item.elements.headline.value} body={item.elements.subheadline.value} />
           </View>
         );
       }
@@ -166,9 +158,9 @@ const createComponents = (
               title={item.elements.headline.value}
               description={item.elements.subheadline.value}
               buttonText={item.elements.button_label.value}
-              buttonUrl={item.elements.button_link.linkedItems[0]?.elements.url?.value ?? ''}
+              buttonUrl={item.elements.button_link.linkedItems[0]?.elements.url?.value ?? ""}
               imageUrl={item.elements.image.value[0]?.url}
-              imagePosition={ctaIndex % 2 === 0 ? 'right' : 'left'}
+              imagePosition={ctaIndex % 2 === 0 ? "right" : "left"}
             />
           </View>
         );
@@ -189,7 +181,7 @@ export const RichText = ({ value, linkedItems = [] }: RichTextProps) => {
 
   const components = useMemo(
     () => createComponents(linkedItems, ctaIndexMap),
-    [linkedItems, ctaIndexMap]
+    [linkedItems, ctaIndexMap],
   );
 
   return <PortableText value={portableText} components={components} />;

@@ -1,5 +1,5 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { createContext, useContext, useState, useCallback, useMemo, type ReactNode } from 'react';
+import { useQueryClient } from "@tanstack/react-query";
+import { createContext, type ReactNode, useCallback, useContext, useMemo, useState } from "react";
 
 type PreviewModeContextValue = {
   readonly isPreview: boolean;
@@ -29,7 +29,7 @@ export const PreviewModeProvider = ({ children }: PreviewModeProviderProps) => {
 export const usePreviewMode = (): PreviewModeContextValue => {
   const context = useContext(PreviewModeContext);
   if (!context) {
-    throw new Error('usePreviewMode must be used within a PreviewModeProvider');
+    throw new Error("usePreviewMode must be used within a PreviewModeProvider");
   }
   return context;
 };

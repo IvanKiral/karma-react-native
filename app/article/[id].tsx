@@ -1,10 +1,11 @@
-import { StyleSheet, ScrollView, RefreshControl, View, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useLocalSearchParams } from 'expo-router';
-import { Image } from 'expo-image';
-import { BrandColors, BrandFonts } from '@/constants/theme';
-import { Loader, RichText } from '@/components';
-import { useArticle } from '@/hooks/use-article';
+import { Image } from "expo-image";
+import { useLocalSearchParams } from "expo-router";
+import { RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Loader } from "@/components/Loader";
+import { RichText } from "@/components/RichText";
+import { BrandColors, BrandFonts } from "@/constants/theme";
+import { useArticle } from "@/hooks/use-article";
 
 const styles = StyleSheet.create({
   container: {
@@ -14,11 +15,11 @@ const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
     backgroundColor: BrandColors.white,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   heroImage: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 16 / 9,
   },
   content: {
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   badge: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     backgroundColor: BrandColors.azure,
     paddingVertical: 6,
     paddingHorizontal: 12,
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     color: BrandColors.white,
     fontFamily: BrandFonts.body,
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
     letterSpacing: 1,
   },
   title: {
@@ -52,19 +53,21 @@ const styles = StyleSheet.create({
   introduction: {
     fontFamily: BrandFonts.body,
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: BrandColors.gray,
     lineHeight: 28,
   },
 });
 
 const formatDate = (dateString: string | null | undefined): string => {
-  if (!dateString) return '';
+  if (!dateString) {
+    return "";
+  }
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 };
 
@@ -74,7 +77,7 @@ export default function ArticleDetail() {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.loadingContainer} edges={['top']}>
+      <SafeAreaView style={styles.loadingContainer} edges={["top"]}>
         <Loader />
       </SafeAreaView>
     );
@@ -94,27 +97,22 @@ export default function ArticleDetail() {
   const imageUrl = image?.value?.[0]?.url;
 
   return (
-    <SafeAreaView style={styles.container} edges={['bottom']}>
+    <SafeAreaView style={styles.container} edges={["bottom"]}>
       <ScrollView refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}>
-        {imageUrl && (
+        {!!imageUrl && (
           <Image source={{ uri: imageUrl }} style={styles.heroImage} contentFit="cover" />
         )}
         <View style={styles.content}>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>ARTICLE</Text>
           </View>
-          {title?.value && <Text style={styles.title}>{title.value}</Text>}
-          {publish_date?.value && (
+          {!!title?.value && <Text style={styles.title}>{title.value}</Text>}
+          {!!publish_date?.value && (
             <Text style={styles.date}>{formatDate(publish_date.value)}</Text>
           )}
-          {introduction?.value && (
-            <Text style={styles.introduction}>{introduction.value}</Text>
-          )}
-          {body_copy?.value && (
-            <RichText
-              value={body_copy.value}
-              linkedItems={body_copy.linkedItems}
-            />
+          {!!introduction?.value && <Text style={styles.introduction}>{introduction.value}</Text>}
+          {!!body_copy?.value && (
+            <RichText value={body_copy.value} linkedItems={body_copy.linkedItems} />
           )}
         </View>
       </ScrollView>
