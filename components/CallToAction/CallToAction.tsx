@@ -1,6 +1,6 @@
-import { BrandColors, BrandFonts } from '@/constants/theme';
-import { Image } from 'expo-image';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image } from "expo-image";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
 
 type CallToActionProps = {
   readonly title: string;
@@ -8,7 +8,7 @@ type CallToActionProps = {
   readonly buttonText: string;
   readonly buttonUrl: string;
   readonly imageUrl?: string;
-  readonly imagePosition?: 'left' | 'right';
+  readonly imagePosition?: "left" | "right";
 };
 
 const styles = StyleSheet.create({
@@ -17,14 +17,14 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   imageContainer: {
-    width: '100%',
+    width: "100%",
     height: 200,
     borderRadius: 8,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   content: {
     gap: 12,
@@ -45,13 +45,13 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   buttonText: {
     fontFamily: BrandFonts.body,
     fontSize: 16,
     color: BrandColors.white,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 
@@ -63,7 +63,7 @@ export const CallToAction = ({
   imageUrl,
 }: CallToActionProps) => (
   <View style={styles.container}>
-    {imageUrl && (
+    {!!imageUrl && (
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: imageUrl }}
@@ -76,7 +76,7 @@ export const CallToAction = ({
     <View style={styles.content}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
-      {buttonUrl && (
+      {!!buttonUrl && (
         <Pressable style={styles.button}>
           <Text style={styles.buttonText}>{buttonText}</Text>
         </Pressable>

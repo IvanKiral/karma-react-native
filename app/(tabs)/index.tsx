@@ -1,10 +1,15 @@
-import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
-import { Divider, FeaturedArticle, HeroImage, Loader, Logo, RichText } from '@/components';
-import { BrandColors, BrandFonts } from '@/constants/theme';
-import { useLandingPage } from '@/hooks/use-landing-page';
-import { isArticleType } from '@/model';
+import { useRouter } from "expo-router";
+import { RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Divider } from "@/components/Divider";
+import { FeaturedArticle } from "@/components/FeaturedArticle/FeaturedArticle";
+import { HeroImage } from "@/components/HeroImage/HeroImage";
+import { Loader } from "@/components/Loader";
+import { Logo } from "@/components/Logo";
+import { RichText } from "@/components/RichText";
+import { BrandColors, BrandFonts } from "@/constants/theme";
+import { useLandingPage } from "@/hooks/use-landing-page";
+import { isArticleType } from "@/model/index";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,15 +22,15 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: BrandColors.white,
   },
   sectionSubtitle: {
     fontFamily: BrandFonts.body,
     fontSize: 22,
     color: BrandColors.burgundy,
-    textAlign: 'left',
+    textAlign: "left",
   },
   headerSection: {
     gap: 16,
@@ -42,7 +47,7 @@ const HomeScreen = () => {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.loadingContainer} edges={['top']}>
+      <SafeAreaView style={styles.loadingContainer} edges={["top"]}>
         <Loader />
       </SafeAreaView>
     );
@@ -53,11 +58,14 @@ const HomeScreen = () => {
   const firstArticle = featuredContent.find(isArticleType);
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <ScrollView contentContainerStyle={styles.scrollContent} refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
+      >
         <View style={styles.headerSection}>
           <Logo />
-          {landingPage && heroImageUrl && (
+          {!!landingPage && !!heroImageUrl && (
             <HeroImage
               headline={landingPage.elements.headline.value}
               subheadline={landingPage.elements.subheadline.value}
@@ -67,7 +75,7 @@ const HomeScreen = () => {
         </View>
 
         <View style={styles.contentSection}>
-          {landingPage?.elements.body_copy.value && (
+          {!!landingPage?.elements.body_copy.value && (
             <>
               <RichText
                 value={landingPage.elements.body_copy.value}
@@ -77,7 +85,7 @@ const HomeScreen = () => {
             </>
           )}
 
-          {firstArticle && (
+          {!!firstArticle && (
             <>
               <Text style={styles.sectionSubtitle}>Featured</Text>
               <FeaturedArticle

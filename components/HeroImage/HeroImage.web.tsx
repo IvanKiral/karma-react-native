@@ -1,24 +1,24 @@
-import { StyleSheet, View, Text, useWindowDimensions } from 'react-native';
-import { Image } from 'expo-image';
-import { BrandColors, BrandFonts } from '@/constants/theme';
+import { Image } from "expo-image";
+import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
 
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: BrandColors.burgundy,
-    width: '100%',
+    width: "100%",
   },
   container: {
-    width: '100%',
+    width: "100%",
     maxWidth: 1536,
-    alignSelf: 'center',
+    alignSelf: "center",
     paddingHorizontal: 12,
   },
   content: {
-    flexDirection: 'column',
+    flexDirection: "column",
     paddingVertical: 40,
   },
   contentWide: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 128,
     paddingVertical: 0,
   },
@@ -27,24 +27,24 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 40,
     gap: 40,
-    alignItems: 'center',
+    alignItems: "center",
   },
   textContainerWide: {
     paddingTop: 104,
     paddingBottom: 160,
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
   },
   headline: {
     fontFamily: BrandFonts.heading,
     fontSize: 48,
     color: BrandColors.creme,
     lineHeight: 52,
-    textAlign: 'center',
+    textAlign: "center",
   },
   headlineWide: {
     fontSize: 64,
     lineHeight: 64,
-    textAlign: 'left',
+    textAlign: "left",
   },
   headlineLarge: {
     fontSize: 94,
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: BrandColors.creme,
     lineHeight: 30,
-    textAlign: 'center',
+    textAlign: "center",
   },
   subheadlineWide: {
-    textAlign: 'left',
+    textAlign: "left",
   },
   imageContainer: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 660 / 770,
   },
   imageContainerWide: {
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     aspectRatio: undefined,
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
 });
 
@@ -90,11 +90,13 @@ export const HeroImage = ({ headline, subheadline, imageUrl }: HeroImageProps) =
       <View style={styles.container}>
         <View style={[styles.content, isWide && styles.contentWide]}>
           <View style={[styles.textContainer, isWide && styles.textContainerWide]}>
-            <Text style={[
-              styles.headline,
-              isWide && styles.headlineWide,
-              isExtraWide && styles.headlineLarge,
-            ]}>
+            <Text
+              style={[
+                styles.headline,
+                isWide && styles.headlineWide,
+                isExtraWide && styles.headlineLarge,
+              ]}
+            >
               {headline}
             </Text>
             <Text style={[styles.subheadline, isWide && styles.subheadlineWide]}>

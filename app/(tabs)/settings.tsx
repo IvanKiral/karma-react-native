@@ -1,7 +1,7 @@
-import { StyleSheet, View, Text, Switch } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { usePreviewMode } from '@/providers/preview-mode-provider';
-import { BrandColors } from '@/constants/theme';
+import { StyleSheet, Switch, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { BrandColors } from "@/constants/theme";
+import { usePreviewMode } from "@/providers/preview-mode-provider";
 
 export default function SettingsScreen() {
   const { isPreview, togglePreview } = usePreviewMode();
@@ -35,14 +35,14 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: BrandColors.gray,
     marginBottom: 24,
   },
   settingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingVertical: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: BrandColors.grayLight,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   settingLabel: {
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: "600",
     color: BrandColors.gray,
   },
   settingDescription: {

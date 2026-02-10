@@ -1,16 +1,16 @@
-import { StyleSheet, View, Pressable, Text } from 'react-native';
-import { Link } from 'expo-router';
-import { useState } from 'react';
-import { BrandColors, BrandFonts } from '@/constants/theme';
+import { Link } from "expo-router";
+import { useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
 
 const MENU_ITEMS = [
-  { label: 'Home', href: '/' },
-  { label: 'Articles', href: '/articles' },
+  { label: "Home", href: "/" },
+  { label: "Articles", href: "/articles" },
 ] as const;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 16,
   },
   item: {
@@ -36,7 +36,7 @@ const NavItem = ({ label, href }: NavItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <Link href={href as '/'} asChild>
+    <Link href={href as "/"} asChild={true}>
       <Pressable
         style={styles.item}
         onHoverIn={() => setIsHovered(true)}

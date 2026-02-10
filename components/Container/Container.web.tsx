@@ -1,11 +1,11 @@
-import { StyleSheet, View } from 'react-native';
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
+import { StyleSheet, View } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
     maxWidth: 1536,
-    alignSelf: 'center',
+    alignSelf: "center",
     paddingHorizontal: 12,
   },
 });

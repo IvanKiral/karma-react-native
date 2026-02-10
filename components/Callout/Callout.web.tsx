@@ -1,5 +1,5 @@
-import { StyleSheet, View, Text } from 'react-native';
-import { BrandColors, BrandFonts } from '@/constants/theme';
+import { StyleSheet, Text, View } from "react-native";
+import { BrandColors, BrandFonts } from "@/constants/theme";
 
 const styles = StyleSheet.create({
   container: {
@@ -13,17 +13,17 @@ const styles = StyleSheet.create({
     fontFamily: BrandFonts.heading,
     fontSize: 60,
     color: BrandColors.white,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 24,
   },
   body: {
     fontFamily: BrandFonts.body,
     fontSize: 18,
     color: BrandColors.white,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 28,
     maxWidth: 896,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 });
 

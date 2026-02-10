@@ -1,5 +1,5 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import type { ReactNode } from 'react';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
 const queryClient = new QueryClient({
   // defaultOptions: {
@@ -7,7 +7,6 @@ const queryClient = new QueryClient({
   //     refetchInterval: 15000,
   //   },
   // },
-
   // use refetchInterval when want to refetch data for automatic preview content
 });
 

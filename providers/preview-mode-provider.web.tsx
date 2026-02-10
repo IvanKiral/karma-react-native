@@ -1,6 +1,14 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useGlobalSearchParams } from 'expo-router';
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useQueryClient } from "@tanstack/react-query";
+import { useGlobalSearchParams } from "expo-router";
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 type PreviewModeContextValue = {
   readonly isPreview: boolean;
@@ -19,7 +27,7 @@ export const PreviewModeProvider = ({ children }: PreviewModeProviderProps) => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (preview !== undefined && preview !== 'false') {
+    if (preview !== undefined && preview !== "false") {
       setIsPreview(true);
     }
   }, [preview]);
@@ -37,7 +45,7 @@ export const PreviewModeProvider = ({ children }: PreviewModeProviderProps) => {
 export const usePreviewMode = (): PreviewModeContextValue => {
   const context = useContext(PreviewModeContext);
   if (!context) {
-    throw new Error('usePreviewMode must be used within a PreviewModeProvider');
+    throw new Error("usePreviewMode must be used within a PreviewModeProvider");
   }
   return context;
 };

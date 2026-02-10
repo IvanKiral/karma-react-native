@@ -1,12 +1,12 @@
-import { StyleSheet, View, useWindowDimensions } from 'react-native';
-import { Logo } from './Logo';
-import { Navigation } from './Navigation/Navigation';
+import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { Logo } from "./Logo";
+import { Navigation } from "./Navigation/Navigation";
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingVertical: 32,
     paddingHorizontal: 16,
   },

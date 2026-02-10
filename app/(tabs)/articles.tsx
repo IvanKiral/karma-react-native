@@ -1,9 +1,10 @@
-import { useRouter } from 'expo-router';
-import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ArticlesList, Loader } from '@/components';
-import { BrandColors } from '@/constants/theme';
-import { useArticles } from '@/hooks/use-articles';
+import { useRouter } from "expo-router";
+import { RefreshControl, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ArticlesList } from "@/components/ArticlesList";
+import { Loader } from "@/components/Loader";
+import { BrandColors } from "@/constants/theme";
+import { useArticles } from "@/hooks/use-articles";
 
 const styles = StyleSheet.create({
   container: {
@@ -15,8 +16,8 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: BrandColors.white,
   },
 });
@@ -31,15 +32,18 @@ const ArticlesScreen = () => {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.loadingContainer} edges={['top']}>
+      <SafeAreaView style={styles.loadingContainer} edges={["top"]}>
         <Loader />
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <ScrollView contentContainerStyle={styles.scrollContent} refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
+      >
         <ArticlesList
           title="Articles"
           articles={articles ?? []}
