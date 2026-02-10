@@ -3,11 +3,15 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint",
+    "lint": "eslint .",
+    "biome:fix": "biome check --fix .",
+    "biome:check": "biome check .",
+    "biome:ci": "biome ci .",
     "model:generate": "tsx scripts/generate-model.ts"
   },
   "dependencies": {
@@ -45,11 +49,13 @@
     "react-native-worklets": "0.5.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.3.14",
+    "@kontent-ai/biome-config": "^0.7.0",
+    "@kontent-ai/eslint-config": "^2.3.0",
     "@kontent-ai/model-generator": "^9.1.1",
     "@types/react": "~19.1.0",
     "dotenv": "^17.2.3",
     "eslint": "^9.25.0",
-    "eslint-config-expo": "~10.0.0",
     "tsx": "^4.21.0",
     "typescript": "~5.9.2"
   },
